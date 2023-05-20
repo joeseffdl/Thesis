@@ -6,15 +6,15 @@ export default function WorkerHeader() {
         <div className="w-10 h-10 bg-orange-200 rounded-full" />
       </div>
       <div className="">
-        <p className=" text-sm font-semibold text-slate-500">Welcome back,</p>
+        <p className=" text-sm font-semibold text-slate-500">Welcome back, User!</p>
         <h2 className="text-3xl font-semibold">
-          Create a habit for <br /> the future
+          Monitor your workers <br /> and their status
         </h2>
       </div>
       <div className="lg:w-4/5 p-5 flex flex-col my-10 h-40 border-2 border-orange-300 bg-orange-200">
-        <h3 className="font-semibold text-lg md:text-xl">Evening Cycle</h3>
+        <h3 className="font-semibold text-lg md:text-xl">Attendance Summary</h3>
         <p className="text-[10px] font-semibold text-slate-600 md:text-sm">
-          6:00 PM - 7:30 PM
+          9:00 AM - 5:00 PM
         </p>
         <div className="relative h-2 w-1/2 bg-orange-300 mt-3">
           <div className="absolute h-2 top-0 left-0 bg-white w-[60%]" />
@@ -24,7 +24,7 @@ export default function WorkerHeader() {
         </div>
       </div>
       <div className="flex justify-between items-center">
-        <h2 className="mb-2 text-2xl font-semibold">Running habits</h2>
+        <h2 className="mb-2 text-2xl font-semibold">Workers List</h2>
       </div>
     </>
   );
