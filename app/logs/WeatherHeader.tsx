@@ -25,7 +25,7 @@ export default function WeatherHeader() {
         throw new Error("Something went wrong in fetching weather data")
       }
     } catch (error) {
-      setError(error?.data?.response?.message)
+      setError(true)
       setWeather({})
       setIsLoading(false)
     }
