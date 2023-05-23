@@ -20,6 +20,7 @@ export default function WeatherHeader() {
       console.log(res.data)
       if (res?.data?.cod === 200) {
         setWeather(res.data)
+        setError(false)
         setIsLoading(false)
       } else {
         throw new Error("Something went wrong in fetching weather data")
@@ -32,36 +33,65 @@ export default function WeatherHeader() {
   }
 
   return (
-    <div className="w-full h-1/5 flex flex-col items-center bg-slate-200 rounded-3xl">
-      <div className="bg-slate-400 text-center w-1/3 rounded-b-full p-1 text-xs font-semibold">
+    <div className="w-full text-white h-full flex flex-col items-center bg-gradient-to-br from-slate-50 via-sky-700 to-sky-500">
+      <div className="bg-black text-center w-1/3 rounded-b-full p-1 text-xs font-semibold">
         Today
       </div>
-      <div className="w-full h-full flex border-black">
-        {weather?.cod === 200 && (
-          <div className="w-2/5 flex items-center justify-center">
-            <Image
-              src={`https://openweathermap.org/img/wn/${weather?.weather[0]?.icon}@4x.png`}
-              alt="Weather Icon"
-              width={100}
-              height={70}
-            />
-          </div>
-        )}
-        <div className="w-3/5 flex flex-col items-center justify-center gap-y-3 divide-y divide-slate-500 py-5">
-          <div className="font-bold text-6xl text-white">
-            23<span className="text-slate-500 text-4xl">/13</span>
-          </div>
-          <div className="text-xs font-semibold">Lorem ipsum dolor</div>
-          <form onSubmit={getWeatherData}>
+      <div className="w-full h-full flex flex-col items-center  border-black mt-5 ">
+        <div className="w-full flex flex-col items-center justify-center gap-y-3">
+          <form
+            onSubmit={getWeatherData}
+            className="text-xs font-semibold space-x-2"
+          >
             <input
               type="text"
               placeholder="Enter City Name"
               onChange={(e) => setCity(e.target.value)}
+              className="p-1 h-10 text-black"
             />
-            <button type="submit">Search</button>
+            <button
+              type="submit"
+              className={`bg-black px-2 h-10 ${isLoading ? "opacity-50" : ""}`}
+              disabled={isLoading}
+            >
+              Search
+            </button>
           </form>
+          {weather?.cod === 200 && (
+            <div className="w-full px-5">
+              <div className="text-center uppercase">
+                <h3>
+                  {weather.name}, {weather.sys.country}
+                </h3>
+                <div className="flex items-center justify-center">
+                  <Image
+                    src={`https://openweathermap.org/img/wn/${weather?.weather[0]?.icon}@4x.png`}
+                    alt="Weather Icon"
+                    width={105}
+                    height={0}
+                    className="w-20"
+                  />
+                  <div className="font-bold text-4xl">
+                    {weather.main.temp}&deg; C
+                  </div>
+                </div>
+                <p>{weather.weather[0].description}</p>
+              </div>
+
+              
+            </div>
+          )}
+          {error && (
+            <div className="w-full p-5 text-red-500 bg-black">
+              Something went wrong with you request. Please try again later.
+            </div>
+          )}
         </div>
       </div>
     </div>
   )
 }
+
+// 
+// {weather.main.pressure}
+// {weather.wind.speed} 

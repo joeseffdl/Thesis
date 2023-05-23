@@ -1,7 +1,7 @@
 export default function MyHome() {
   return (
     <>
-      <div className="w-full flex justify-center items-center">
+      <div className="w-full flex justify-center items-center ">
         <div>
           My <span>home</span>
         </div>
@@ -19,5 +19,5 @@ export default function MyHome() {
         </div>
       </div>
     </>
-  )
+  );
 }

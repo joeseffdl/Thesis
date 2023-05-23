@@ -20,14 +20,18 @@ function Navigation() {
               href={route.path}
               className="flex items-center gap-2 hover:bg-slate-200/50 hover:rounded-2xl px-5 py-3"
             >
-              {route.name === "Dashboard" && <FcHome className="p-1 border rounded-lg w-8 h-8" />}
+              {route.name === "Dashboard" && (
+                <FcHome className="p-1 border rounded-lg w-8 h-8" />
+              )}
               {route.name === "Location" && (
                 <GrMapLocation className="p-1 border rounded-lg w-8 h-8" />
               )}
               {route.name === "Timekeeping" && (
                 <FcClock className="p-1 border rounded-lg w-8 h-8" />
               )}
-              {route.name === "Workers" && <GrTools className="p-1 border rounded-lg w-8 h-8" />}
+              {route.name === "Workers" && (
+                <GrTools className="p-1 border rounded-lg w-8 h-8" />
+              )}
               <span>{route.name}</span>
             </Link>
           </li>

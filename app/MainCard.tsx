@@ -1,10 +1,10 @@
 type MainCardProps = {
-  id: number
-  task: string
-  tag: string
-  description: string
-  date: string
-}
+  id: number;
+  task: string;
+  tag: string;
+  description: string;
+  date: string;
+};
 
 export default function MainCard({
   id,
@@ -31,5 +31,5 @@ export default function MainCard({
         <p className="text-sm text-slate-300">{date}</p>
       </div>
     </section>
-  )
+  );
 }

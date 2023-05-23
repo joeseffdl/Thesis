@@ -5,7 +5,7 @@ export default function Logs() {
   return (
     <div className="w-full flex flex-col xl:flex-row">
       <section className="xl:w-3/4">
-        <section className="p-8 ">
+        <section className="p-8">
           <Header
             title="Timekeeping"
             subtitle="Monitor the status of your workers"
@@ -25,10 +25,10 @@ export default function Logs() {
         </div>
       </section>
 
-      <section className="hidden gap-2 xl:flex flex-col items-center p-5 w-1/4">
+      <section className="hidden xl:flex flex-col items-center w-1/4">
         <WeatherHeader />
-        <div className="w-full h-full flex items-center justify-center">
-          <div className="w-full h-full flex flex-col items-center bg-slate-200 rounded-3xl gap-2 py-3 px-8">
+        {/* <div className="w-full h-full flex items-center justify-center">
+          <div className="w-full h-full flex flex-col items-center bg-gradient-to-t from-sky-500 via-sky-700 to-sky-500 gap-2 py-3 px-8">
             <MyHome />
             <div className="p-5 gap-2 w-full h-full bg-slate-800 rounded-3xl grid grid-cols-2 border border-white ">
               <WeatherGridItem />
@@ -37,8 +37,8 @@ export default function Logs() {
               <WeatherGridItem />
             </div>
           </div>
-        </div>
+        </div> */}
       </section>
     </div>
-  );
+  )
 }
