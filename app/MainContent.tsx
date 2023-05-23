@@ -1,16 +1,16 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import {MainCard, ProjectCard} from "./"
+import { useState, useEffect } from "react";
+import { MainCard, ProjectCard } from "./";
 
 export default function MainContent() {
-    const [description, setDescription] = useState(
-      "This is a long description that will cause a layout shift if it is not optimized."
-    )
+  const [description, setDescription] = useState(
+    "This is a long description that will cause a layout shift if it is not optimized."
+  );
 
-    useEffect(() => {
-      setDescription(description.substring(0, 100) + "...")
-    }, [description])
+  useEffect(() => {
+    setDescription(description.substring(0, 100) + "...");
+  }, [description]);
 
   return (
     <>
@@ -83,17 +83,32 @@ export default function MainContent() {
           </div>
           <ul className="flex flex-col gap-2">
             <ProjectCard
-                image={"Latest IMG"} name={"Latest"} tasks={2} overdue={0} date={"Jan 01 - Dec 30"} images={["IMG 1", "IMG 2", "IMG 3"]}
+              image={"Latest IMG"}
+              name={"Latest"}
+              tasks={2}
+              overdue={0}
+              date={"Jan 01 - Dec 30"}
+              images={["IMG 1", "IMG 2", "IMG 3"]}
             />
             <ProjectCard
-                image={"Sample IMG"} name={"Sample"} tasks={8} overdue={4} date={"Jun 01 - Jul 30"} images={["IMG 1", "IMG 2", "IMG 3"]}
+              image={"Sample IMG"}
+              name={"Sample"}
+              tasks={8}
+              overdue={4}
+              date={"Jun 01 - Jul 30"}
+              images={["IMG 1", "IMG 2", "IMG 3"]}
             />
             <ProjectCard
-                image={"Old IMG"} name={"Old"} tasks={12} overdue={3} date={"Nov 01 - Dec 30"} images={["IMG 1", "IMG 2", "IMG 3"]}
+              image={"Old IMG"}
+              name={"Old"}
+              tasks={12}
+              overdue={3}
+              date={"Nov 01 - Dec 30"}
+              images={["IMG 1", "IMG 2", "IMG 3"]}
             />
           </ul>
         </div>
       </section>
     </>
-  )
+  );
 }

@@ -1,8 +1,8 @@
 type SubSectionProps = {
-  title: string
-  value: number
-  suffix?: string
-}
+  title: string;
+  value: number;
+  suffix?: string;
+};
 
 function SubSection({ title, value, suffix }: SubSectionProps) {
   return (
@@ -12,7 +12,7 @@ function SubSection({ title, value, suffix }: SubSectionProps) {
         {value} <span className="text-sm">{suffix}</span>
       </h2>
     </div>
-  )
+  );
 }
 
 export default function SubHeader() {
@@ -23,5 +23,5 @@ export default function SubHeader() {
       <SubSection title="Tasks in due" value={69} suffix="/420" />
       <SubSection title="Newly assigned tasks" value={123} />
     </section>
-  )
+  );
 }
