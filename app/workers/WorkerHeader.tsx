@@ -6,9 +6,7 @@ export default function WorkerHeader() {
         <div className="w-10 h-10 bg-orange-200 rounded-full" />
       </div>
       <div className="">
-        <p className=" text-sm font-semibold text-slate-500">
-          Welcome back, User!
-        </p>
+        <p className=" text-sm font-semibold text-slate-500">Welcome back, User!</p>
         <h2 className="text-3xl font-semibold">
           Monitor your workers <br /> and their status
         </h2>
