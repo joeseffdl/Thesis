@@ -51,7 +51,7 @@ export default function WeatherHeader() {
             />
             <button
               type="submit"
-              className={`bg-black px-2 h-10 ${isLoading ? "opacity-50" : ""}`}
+              className={`bg-black px-2 h-10 ${isLoading ? "opacity-50" : ""} hover:scale-105 duration-150`}
               disabled={isLoading}
             >
               Search
@@ -83,7 +83,7 @@ export default function WeatherHeader() {
           )}
           {error && (
             <div className="w-full p-5 text-red-500 bg-black">
-              Something went wrong with you request. Please try again later.
+              Something went wrong with your request. Please try again later.
             </div>
           )}
         </div>
@@ -92,6 +92,6 @@ export default function WeatherHeader() {
   )
 }
 
-// 
+// humidity
 // {weather.main.pressure}
 // {weather.wind.speed} 
