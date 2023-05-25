@@ -1,5 +1,17 @@
 import { Header, LogsSubHeader } from "../components";
-import { ListItem, MyHome, WeatherGridItem, WeatherHeader } from "./";
+import { ListItem, WeatherHeader } from "./";
+
+const WorkersList = [
+  {
+    timeIn:"9:00 AM", name:"Worker 1", id:"TestID1", role:"Engineer", hoursRendered:45
+  },
+  {
+    timeIn:"9:00 AM", name:"Worker 2", id:"TestID2", role:"Engineer", hoursRendered:77
+  },
+  {
+    timeIn:"9:00 AM", name:"Worker 3", id:"TestID3", role:"Engineer", hoursRendered:88
+  }
+]
 
 export default function Logs() {
   return (
@@ -18,26 +30,15 @@ export default function Logs() {
             <h4 className="text-xs">See All Tasks {">"}</h4>
           </div>
           <ul className="flex flex-col gap-2">
-            <ListItem />
-            <ListItem />
-            <ListItem />
+            {WorkersList.map((worker, index) => (
+              <ListItem key={index} timeIn={worker.timeIn} name={worker.name} id={worker.id} role={worker.role} hoursRendered={worker.hoursRendered} />
+            ))}
           </ul>
         </div>
       </section>
 
       <section className="hidden xl:flex flex-col items-center w-1/4">
         <WeatherHeader />
-        {/* <div className="w-full h-full flex items-center justify-center">
-          <div className="w-full h-full flex flex-col items-center bg-gradient-to-t from-sky-500 via-sky-700 to-sky-500 gap-2 py-3 px-8">
-            <MyHome />
-            <div className="p-5 gap-2 w-full h-full bg-slate-800 rounded-3xl grid grid-cols-2 border border-white ">
-              <WeatherGridItem />
-              <WeatherGridItem />
-              <WeatherGridItem />
-              <WeatherGridItem />
-            </div>
-          </div>
-        </div> */}
       </section>
     </div>
   )

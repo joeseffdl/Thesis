@@ -1,7 +1,6 @@
 import ListItem from "./ListItem";
 import MyHome from "./MyHome";
-import WeatherGridItem from "./WeatherGridItem";
+import WeatherCondition from "./WeatherCondition";
 import WeatherHeader from "./WeatherHeader";
 
-
-export { ListItem, WeatherGridItem, MyHome, WeatherHeader }
+export { ListItem, MyHome, WeatherHeader, WeatherCondition };
