@@ -1,11 +1,14 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import axios from "axios"
 import Image from "next/image"
+import { BsDropletHalf, BsHurricane } from "react-icons/bs"
+import { BiTachometer } from "react-icons/bi"
+import {WeatherCondition} from "./"
 
 export default function WeatherHeader() {
-  const [city, setCity] = useState("")
+  const [city, setCity] = useState("Manila")
   const [weather, setWeather] = useState({} as any)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(false)
@@ -32,8 +35,12 @@ export default function WeatherHeader() {
     }
   }
 
+  useEffect(() => {
+    getWeatherData({ preventDefault: () => { } })
+  }, [city])
+
   return (
-    <div className="w-full text-white h-full flex flex-col items-center bg-gradient-to-br from-slate-50 via-sky-700 to-sky-500">
+    <div className="w-full text-white h-full flex flex-col items-center bg-gradient-to-br from-slate-100 via-sky-700 to-sky-500">
       <div className="bg-black text-center w-1/3 rounded-b-full p-1 text-xs font-semibold">
         Today
       </div>
@@ -51,7 +58,9 @@ export default function WeatherHeader() {
             />
             <button
               type="submit"
-              className={`bg-black px-2 h-10 ${isLoading ? "opacity-50" : ""} hover:scale-105 duration-150`}
+              className={`bg-black px-2 h-10 ${
+                isLoading ? "opacity-50" : ""
+              } hover:scale-105 duration-150`}
               disabled={isLoading}
             >
               Search
@@ -59,26 +68,29 @@ export default function WeatherHeader() {
           </form>
           {weather?.cod === 200 && (
             <div className="w-full px-5">
-              <div className="text-center uppercase">
-                <h3>
-                  {weather.name}, {weather.sys.country}
-                </h3>
-                <div className="flex items-center justify-center">
+                <div className="flex flex-col items-center justify-center text-center font-semibold text-6xl uppercase space-y-1">
                   <Image
                     src={`https://openweathermap.org/img/wn/${weather?.weather[0]?.icon}@4x.png`}
                     alt="Weather Icon"
-                    width={105}
+                    width={100}
                     height={0}
-                    className="w-20"
+                    className="w-1/2"
                   />
-                  <div className="font-bold text-4xl">
-                    {weather.main.temp}&deg; C
+                  <div className="flex flex-col ">
+                    <div>
+                      {weather.main.temp} &deg;C
+                    </div>
+                    <h3 className="capitalize text-2xl font-normal">
+                    {weather.name} City, {weather.sys.country}
+                  </h3>
+                  <p className="text-sm tracking-widest">{weather.weather[0].description}</p>
+                  <div className="mt-10 flex flex-col items-center justify-center gap-5">
+                    <WeatherCondition source={<BsHurricane />} name="Wind Speed" condition={weather.wind.speed} label="m/s"/>
+                    <WeatherCondition source={<BsDropletHalf />} name="Humidity" condition={weather.main.humidity} label="%"/>
+                    <WeatherCondition source={<BiTachometer />} name="Pressure" condition={weather.main.pressure} label="hPa"/>
                   </div>
-                </div>
-                <p>{weather.weather[0].description}</p>
+                  </div>
               </div>
-
-              
             </div>
           )}
           {error && (
@@ -91,7 +103,3 @@ export default function WeatherHeader() {
     </div>
   )
 }
-
-// humidity
-// {weather.main.pressure}
-// {weather.wind.speed} 
