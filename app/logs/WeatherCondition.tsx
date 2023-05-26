@@ -1,7 +1,5 @@
-import Image from "next/image"
-
 type WeatherConditionProps = {
-  source?: string
+  source?: any
   name?: string
   width?: number
   height?: number
@@ -18,18 +16,20 @@ export default function WeatherCondition({
   label,
 }: WeatherConditionProps) {
   return (
-    <div className="flex items-center justify-center">
-      {source && (
-        <Image
-          src={source}
-          alt={`${name} Icon`}
-          width={width}
-          height={height}
-        />
-      )}
-      <div className="font-bold text-4xl">
-        {condition} {label}
+    <>
+      <div className="flex items-center justify-between w-full">
+        {source && (
+          <span
+            className="grid place-items-center w-fit p-2"
+          >
+            {source}
+          </span>
+        )}
+        <div className="w-full text-center text-2xl">
+          {condition} {label}
+          <div className="text-sm">{name}</div>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
