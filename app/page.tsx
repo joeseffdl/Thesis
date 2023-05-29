@@ -5,7 +5,7 @@ export default function Dashboard() {
   return (
     <main className="w-full">
       <section className="bg-slate-200 p-8">
-        <Header title="Dashboard" subtitle="Good Morning, User!" />
+        <Header title="Dashboard" subtitle="Greetings, Super Admin!" />
         <SubHeader />
       </section>
       <section className="p-8 flex flex-col lg:flex-row gap-5">

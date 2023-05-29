@@ -20,7 +20,6 @@ export default function WeatherHeader() {
       const res = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}&units=metric`
       )
-      console.log(res.data)
       if (res?.data?.cod === 200) {
         setWeather(res.data)
         setError(false)
