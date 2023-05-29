@@ -1,6 +1,7 @@
-import { Navigation } from "./components";
 import "./globals.css";
-import { Poppins, Montserrat } from "next/font/google";
+import { Poppins } from "next/font/google";
+import { Toaster } from "react-hot-toast"
+import { Navigation } from "./components";
 
 const poppins = Poppins({
   weight: ["400"],
@@ -18,14 +19,16 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-}) {
+  }) {
+
   return (
     <html lang="en">
       <head />
       <body className={`flex ${poppins.variable} font-poppins`}>
+        <Toaster position="top-right" reverseOrder={false} />
         <Navigation />
         {children}
       </body>
     </html>
-  );
+  )
 }
