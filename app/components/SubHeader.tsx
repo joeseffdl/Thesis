@@ -14,7 +14,7 @@ function SubSection({ title, value, suffix }: SubSectionProps) {
         {value} <span className="text-sm">{suffix}</span>
       </h2>
     </div>
-  )
+  );
 }
 
 export default function SubHeader() {

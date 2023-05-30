@@ -1,11 +1,11 @@
 type WeatherConditionProps = {
-  source?: any
-  name?: string
-  width?: number
-  height?: number
-  condition: string
-  label: string
-}
+  source?: any;
+  name?: string;
+  width?: number;
+  height?: number;
+  condition: string;
+  label: string;
+};
 
 export default function WeatherCondition({
   source,
@@ -19,11 +19,7 @@ export default function WeatherCondition({
     <>
       <div className="flex items-center justify-between w-full">
         {source && (
-          <span
-            className="grid place-items-center w-fit p-2"
-          >
-            {source}
-          </span>
+          <span className="grid place-items-center w-fit p-2">{source}</span>
         )}
         <div className="w-full text-center text-2xl">
           {condition} {label}
@@ -31,5 +27,5 @@ export default function WeatherCondition({
         </div>
       </div>
     </>
-  )
+  );
 }

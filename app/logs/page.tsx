@@ -1,33 +1,51 @@
-"use client"
+"use client";
 
 import { Header, LogsSubHeader } from "../components";
 import { ListItem, WeatherHeader } from "./";
-import { ref, onValue, set } from "firebase/database"
-import { db } from "../../utils/firebase"
-import { useState, useEffect } from "react"
+import { ref, onValue, update } from "firebase/database";
+import { db } from "../../utils/firebase";
+import { useState, useEffect, useMemo } from "react";
 
 type TimelogProps = {
-  id: string
-  loggedTimeIn: number
-  name: string
-  role: string
-  scheduledTimeOut: number
-}
+  id: string;
+  loggedTimeIn: number;
+  name: string;
+  role: string;
+  scheduledTimeOut: number;
+  notified: boolean;
+  status: string;
+};
 
 export default function Logs() {
-  const [timelogs, setTimelogs] = useState([])
+  const [timelogs, setTimelogs] = useState([]);
+  const [notify, setNotify] = useState(false);
+  const [tempID, setTempID] = useState("");
+
+  const notifyWorker = () => {
+    update(ref(db, `timelogs/${tempID}`), {
+      notified: notify,
+      id: tempID,
+    });
+  };
 
   useEffect(() => {
-    const timelogsRef = ref(db, "timelogs")
+    const timelogsRef = ref(db, "timelogs");
     onValue(timelogsRef, (snapshot) => {
-      const data = snapshot.val()
+      const data = snapshot.val();
       if (data !== null) {
-        Object.values(data).map((timelog) => {
-          setTimelogs((prev) => [...prev, timelog] as any)
-        })
+        const timelogsArray = Object.values(data);
+        setTimelogs(timelogsArray as any);
       }
-    })
-  }, [])
+    });
+  }, []);
+
+  useEffect(() => {
+    if (notify) {
+      notifyWorker();
+    }
+  }, [notify]);
+
+  const memoizedTimelogs = useMemo(() => timelogs, [timelogs]);
 
   return (
     <div className="w-full flex flex-col xl:flex-row">
@@ -42,17 +60,22 @@ export default function Logs() {
           <LogsSubHeader />
           <div className="flex justify-between items-center py-4 px-2">
             <h2 className="font-semibold text-lg">Timelogs</h2>
-            {/* <h4 className="text-xs">See All Logs {">"}</h4> */}
           </div>
           <ul className="flex flex-col gap-2">
-            {timelogs.map((timelog:TimelogProps) => (
+            {memoizedTimelogs.map((timelog: TimelogProps) => (
               <ListItem
                 key={timelog.id}
                 timeIn={timelog.loggedTimeIn}
                 name={timelog.name}
                 id={timelog.id}
                 role={timelog.role}
-                timeOut={timelog.scheduledTimeOut} />
+                timeOut={timelog.scheduledTimeOut}
+                status={timelog.status}
+                notify={timelog.notified}
+                tempID={tempID}
+                setNotify={setNotify}
+                setTempID={setTempID}
+              />
             ))}
           </ul>
         </div>
@@ -62,5 +85,5 @@ export default function Logs() {
         <WeatherHeader />
       </section>
     </div>
-  )
+  );
 }

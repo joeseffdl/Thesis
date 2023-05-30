@@ -2,9 +2,13 @@ type WorkerHeaderProps = {
   timeIn: string;
   timeOut: string;
   completedHours: string;
-}
+};
 
-export default function WorkerHeader({ timeIn, timeOut, completedHours }: WorkerHeaderProps) {
+export default function WorkerHeader({
+  timeIn,
+  timeOut,
+  completedHours,
+}: WorkerHeaderProps) {
   return (
     <>
       <div className="flex justify-between items-center my-2">
@@ -12,7 +16,9 @@ export default function WorkerHeader({ timeIn, timeOut, completedHours }: Worker
         <div className="w-10 h-10 bg-orange-200 rounded-full" />
       </div>
       <div className="">
-        <p className=" text-sm font-semibold text-slate-500">Welcome back, Super Admin!</p>
+        <p className=" text-sm font-semibold text-slate-500">
+          Welcome back, Super Admin!
+        </p>
         <h2 className="text-3xl font-semibold">
           Monitor your workers <br /> and their status
         </h2>
@@ -23,7 +29,10 @@ export default function WorkerHeader({ timeIn, timeOut, completedHours }: Worker
           {timeIn} - {timeOut}
         </p>
         <div className="relative h-2 w-1/2 bg-orange-300 mt-3">
-          <div className="absolute h-2 top-0 left-0 bg-white" style={{ width: completedHours + "%"}} />
+          <div
+            className="absolute h-2 top-0 left-0 bg-white"
+            style={{ width: completedHours + "%" }}
+          />
         </div>
         <div className="flex w-1/2 items-center justify-end text-xs md:text-sm mt-1 font-semibold">
           {completedHours}%
