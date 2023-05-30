@@ -4,6 +4,11 @@ type ListItemProps = {
   id: string;
   role: string;
   timeOut: number;
+  status: string;
+  notify: boolean;
+  tempID: string;
+  setNotify: (value: boolean) => void;
+  setTempID: (value: string) => void;
 };
 
 export default function ListItem({
@@ -12,11 +17,31 @@ export default function ListItem({
   id,
   role,
   timeOut,
+  status,
+  notify,
+  tempID,
+  setNotify,
+  setTempID,
 }: ListItemProps) {
+  const handleNotify = (id: string) => {
+    setTempID(id);
+    setNotify(true);
+  };
+
   return (
-    <li className="p-4 flex flex-col lg:flex-row items-center justify-around gap-5 bg-white rounded-xl">
+    <li
+      className={`p-4 flex flex-col lg:flex-row items-center justify-around gap-5 ${
+        status === "normal"
+          ? "bg-green-200"
+          : status === "warning"
+          ? "bg-amber-200"
+          : status === "danger"
+          ? "bg-red-200"
+          : "bg-white"
+      } rounded-xl`}
+    >
       <div className="flex items-center gap-2 lg:w-1/6">
-        <button className=" bg-white rounded-full w-10 h-10 border-2 shadow-sky-500 shadow-inner"></button>
+        <button className="bg-white rounded-full w-10 h-10 border-2 shadow-sky-500 shadow-inner"></button>
         <div className="flex flex-col">
           <div>Logged In</div>
           <div>{timeIn}</div>
@@ -42,8 +67,11 @@ export default function ListItem({
         </div>
       </div>
       <div className="flex items-center justify-center lg:w-1/6">
-        <button className="bg-indigo-100 text-indigo-500 rounded-lg font-semibold text-sm py-2 px-4">
-          Notify
+        <button
+          onClick={() => handleNotify(id)}
+          className="bg-indigo-100 text-indigo-500 rounded-lg font-semibold text-sm py-2 px-4"
+        >
+          {notify ? "Notified" : "Notify"}
         </button>
       </div>
     </li>
