@@ -1,13 +1,18 @@
 type ListItemProps = {
-  timeIn: number
-  name: string
-  id: string
-  role: string
-  timeOut: number
-}
+  timeIn: number;
+  name: string;
+  id: string;
+  role: string;
+  timeOut: number;
+};
 
-export default function ListItem({ timeIn, name, id, role, timeOut }: ListItemProps) {
-  
+export default function ListItem({
+  timeIn,
+  name,
+  id,
+  role,
+  timeOut,
+}: ListItemProps) {
   return (
     <li className="p-4 flex flex-col lg:flex-row items-center justify-around gap-5 bg-white rounded-xl">
       <div className="flex items-center gap-2 lg:w-1/6">
@@ -26,7 +31,8 @@ export default function ListItem({ timeIn, name, id, role, timeOut }: ListItemPr
       </div>
       <div className={`flex flex-col justify-center h-full gap-2 w-1/3`}>
         <div className="font-semibold">
-          {Math.round((timeIn / timeOut) * 100)} % <span className="text-xs">complete</span>
+          {Math.round((timeIn / timeOut) * 100)} %{" "}
+          <span className="text-xs">complete</span>
         </div>
         <div className="relative rounded-full w-full h-2 bg-slate-300">
           <div
@@ -41,5 +47,5 @@ export default function ListItem({ timeIn, name, id, role, timeOut }: ListItemPr
         </button>
       </div>
     </li>
-  )
+  );
 }

@@ -1,42 +1,42 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import axios from "axios"
-import Image from "next/image"
-import { BsDropletHalf, BsHurricane } from "react-icons/bs"
-import { BiTachometer } from "react-icons/bi"
-import {WeatherCondition} from "./"
+import { useState, useEffect } from "react";
+import axios from "axios";
+import Image from "next/image";
+import { BsDropletHalf, BsHurricane } from "react-icons/bs";
+import { BiTachometer } from "react-icons/bi";
+import { WeatherCondition } from "./";
 
 export default function WeatherHeader() {
-  const [city, setCity] = useState("Manila")
-  const [weather, setWeather] = useState({} as any)
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState(false)
+  const [city, setCity] = useState("Manila");
+  const [weather, setWeather] = useState({} as any);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const getWeatherData = async (e: any) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      setIsLoading(true)
+      setIsLoading(true);
       const res = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}&units=metric`
-      )
+      );
       if (res?.data?.cod === 200) {
-        setWeather(res.data)
-        setError(false)
-        setIsLoading(false)
+        setWeather(res.data);
+        setError(false);
+        setIsLoading(false);
       } else {
-        throw new Error("Something went wrong in fetching weather data")
+        throw new Error("Something went wrong in fetching weather data");
       }
     } catch (error) {
-      setError(true)
-      setWeather({})
-      setIsLoading(false)
+      setError(true);
+      setWeather({});
+      setIsLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
-    getWeatherData({ preventDefault: () => { } })
-  }, [city])
+    getWeatherData({ preventDefault: () => {} });
+  }, [city]);
 
   return (
     <div className="w-full text-white h-full flex flex-col items-center bg-gradient-to-br from-slate-100 via-sky-700 to-sky-500">
@@ -67,28 +67,43 @@ export default function WeatherHeader() {
           </form>
           {weather?.cod === 200 && (
             <div className="w-full px-5">
-                <div className="flex flex-col items-center justify-center text-center font-semibold text-6xl uppercase space-y-1">
-                  <Image
-                    src={`https://openweathermap.org/img/wn/${weather?.weather[0]?.icon}@4x.png`}
-                    alt="Weather Icon"
-                    width={100}
-                    height={0}
-                    className="w-1/2"
-                  />
-                  <div className="flex flex-col ">
-                    <div>
-                      {weather.main.temp} &deg;C
-                    </div>
-                    <h3 className="capitalize text-2xl font-normal">
+              <div className="flex flex-col items-center justify-center text-center font-semibold text-6xl uppercase space-y-1">
+                <Image
+                  src={`https://openweathermap.org/img/wn/${weather?.weather[0]?.icon}@4x.png`}
+                  alt="Weather Icon"
+                  width={100}
+                  height={0}
+                  className="w-1/2"
+                />
+                <div className="flex flex-col ">
+                  <div>{weather.main.temp} &deg;C</div>
+                  <h3 className="capitalize text-2xl font-normal">
                     {weather.name} City, {weather.sys.country}
                   </h3>
-                  <p className="text-sm tracking-widest">{weather.weather[0].description}</p>
+                  <p className="text-sm tracking-widest">
+                    {weather.weather[0].description}
+                  </p>
                   <div className="mt-10 flex flex-col items-center justify-center gap-5">
-                    <WeatherCondition source={<BsHurricane />} name="Wind Speed" condition={weather.wind.speed} label="m/s"/>
-                    <WeatherCondition source={<BsDropletHalf />} name="Humidity" condition={weather.main.humidity} label="%"/>
-                    <WeatherCondition source={<BiTachometer />} name="Pressure" condition={weather.main.pressure} label="hPa"/>
+                    <WeatherCondition
+                      source={<BsHurricane />}
+                      name="Wind Speed"
+                      condition={weather.wind.speed}
+                      label="m/s"
+                    />
+                    <WeatherCondition
+                      source={<BsDropletHalf />}
+                      name="Humidity"
+                      condition={weather.main.humidity}
+                      label="%"
+                    />
+                    <WeatherCondition
+                      source={<BiTachometer />}
+                      name="Pressure"
+                      condition={weather.main.pressure}
+                      label="hPa"
+                    />
                   </div>
-                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -100,5 +115,5 @@ export default function WeatherHeader() {
         </div>
       </div>
     </div>
-  )
+  );
 }

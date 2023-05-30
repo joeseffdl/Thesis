@@ -1,6 +1,6 @@
 import "./globals.css";
 import { Poppins } from "next/font/google";
-import { Toaster } from "react-hot-toast"
+import { Toaster } from "react-hot-toast";
 import { Navigation } from "./components";
 
 const poppins = Poppins({
@@ -19,8 +19,7 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-  }) {
-
+}) {
   return (
     <html lang="en">
       <head />
@@ -30,5 +29,5 @@ export default function RootLayout({
         {children}
       </body>
     </html>
-  )
+  );
 }

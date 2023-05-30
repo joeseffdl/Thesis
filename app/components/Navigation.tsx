@@ -1,30 +1,30 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { FcClock, FcHome, FcExport } from "react-icons/fc"
-import { GrMapLocation, GrTools } from "react-icons/gr"
-import { usePathname, useRouter } from "next/navigation"
-import { useAuthState } from "react-firebase-hooks/auth"
-import { auth } from "../../utils/firebase"
-import { useEffect } from "react"
+import Link from "next/link";
+import { FcClock, FcHome, FcExport } from "react-icons/fc";
+import { GrMapLocation, GrTools } from "react-icons/gr";
+import { usePathname, useRouter } from "next/navigation";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../utils/firebase";
+import { useEffect } from "react";
 
 const routes = [
   { name: "Dashboard", path: "/" },
   { name: "Location", path: "/location" },
   { name: "Timekeeping", path: "/logs" },
   { name: "Workers", path: "/workers" },
-]
+];
 
 function Navigation() {
-  const [user, loading] = useAuthState(auth)
-  const pathname = usePathname()
-  const router = useRouter()
+  const [user, loading] = useAuthState(auth);
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
-    if(!loading && !user) {
-      router.push("/login")
+    if (!loading && !user) {
+      router.push("/login");
     }
-  }, [user, loading])
+  }, [user, loading]);
 
   return (
     <>
@@ -63,7 +63,7 @@ function Navigation() {
         </div>
       )}
     </>
-  )
+  );
 }
 
-export default Navigation
+export default Navigation;
