@@ -1,6 +1,6 @@
-import ListItem from "./ListItem";
+import TimelogsList from "./TimelogsList"
 import MyHome from "./MyHome";
 import WeatherCondition from "./WeatherCondition";
 import WeatherHeader from "./WeatherHeader";
 
-export { ListItem, MyHome, WeatherHeader, WeatherCondition };
+export { TimelogsList, MyHome, WeatherHeader, WeatherCondition }

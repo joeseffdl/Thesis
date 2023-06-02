@@ -1,7 +1,7 @@
 "use client";
 
 import { Header, LogsSubHeader } from "../components";
-import { ListItem, WeatherHeader } from "./";
+import { TimelogsList, WeatherHeader } from "./";
 import { ref, onValue, update } from "firebase/database";
 import { db } from "../../utils/firebase";
 import { useState, useEffect, useMemo } from "react";
@@ -63,12 +63,11 @@ export default function Logs() {
           </div>
           <ul className="flex flex-col gap-2">
             {memoizedTimelogs.map((timelog: TimelogProps) => (
-              <ListItem
+              <TimelogsList
                 key={timelog.id}
                 timeIn={timelog.loggedTimeIn}
                 name={timelog.name}
                 id={timelog.id}
-                role={timelog.role}
                 timeOut={timelog.scheduledTimeOut}
                 status={timelog.status}
                 notify={timelog.notified}

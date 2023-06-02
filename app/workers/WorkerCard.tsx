@@ -3,6 +3,7 @@ type WorkerCardProps = {
   timeIn: string;
   timeOut: string;
   status: string;
+  role?: string;
 };
 
 export default function WorkerCard({
@@ -10,6 +11,7 @@ export default function WorkerCard({
   timeIn,
   timeOut,
   status,
+  role,
 }: WorkerCardProps) {
   return (
     <div
@@ -27,9 +29,12 @@ export default function WorkerCard({
         <div className="w-10 h-10 bg-orange-200 rounded-full" />
         <div className="flex flex-col justify-center">
           <h3 className="font-semibold">{name}</h3>
-          <p className="text-xs text-slate-500">
-            {timeIn} - {timeOut}
-          </p>
+          <div className="flex gap-2 text-xs">
+            <p className="font-semibold">{role}</p>
+            <p className="text-slate-500">
+              Schedule: {timeIn} - {timeOut}
+            </p>
+          </div>
         </div>
       </div>
       <div className="w-8 h-8 bg-orange-100 rounded-full" />
