@@ -17,9 +17,10 @@ export default function MainContent() {
       <section className="w-full flex flex-col gap-5">
         <div className="flex justify-between">
           <h2 className="text-xl font-semibold">
-            My tasks <span className="text-xs">view all</span>
+            My tasks
+            {/* <span className="text-xs">view all</span> */}
           </h2>
-          <div>...</div>
+          {/* <div>...</div> */}
         </div>
         <MainCard
           id={1}

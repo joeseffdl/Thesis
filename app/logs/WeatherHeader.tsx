@@ -59,7 +59,7 @@ export default function WeatherHeader() {
               type="submit"
               className={`bg-black px-2 h-10 ${
                 isLoading ? "opacity-50" : ""
-              } hover:scale-105 duration-150`}
+              } hover:scale-105 duration-75`}
               disabled={isLoading}
             >
               Search

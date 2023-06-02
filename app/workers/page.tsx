@@ -10,6 +10,7 @@ type WorkerProps = {
   loggedTimeIn: string;
   scheduledTimeOut: string;
   status: string;
+  role?: string;
 };
 
 export default function Workers() {
@@ -44,6 +45,7 @@ export default function Workers() {
               timeIn={worker.loggedTimeIn}
               timeOut={worker.scheduledTimeOut}
               status={worker.status}
+              role={worker.role}
             />
           ))}
         </div>

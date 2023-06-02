@@ -2,7 +2,6 @@ type ListItemProps = {
   timeIn: number;
   name: string;
   id: string;
-  role: string;
   timeOut: number;
   status: string;
   notify: boolean;
@@ -15,7 +14,6 @@ export default function ListItem({
   timeIn,
   name,
   id,
-  role,
   timeOut,
   status,
   notify,
@@ -40,19 +38,15 @@ export default function ListItem({
           : "bg-white"
       } rounded-xl`}
     >
-      <div className="flex items-center gap-2 lg:w-1/6">
-        <button className="bg-white rounded-full w-10 h-10 border-2 shadow-sky-500 shadow-inner"></button>
-        <div className="flex flex-col">
-          <div>Logged In</div>
-          <div>{timeIn}</div>
-        </div>
-      </div>
-      <div className="flex flex-col gap-2 lg:w-2/6">
+      <div className="flex flex-col gap-2 lg:w-1/6">
         <div className="font-semibold text-center lg:text-left">{name}</div>
         <div className="flex gap-2 text-center lg:text-left">
-          <div className="text-xs font-thin w-full">{id}</div>
-          <div className="text-xs font-thin w-full">{role}</div>
+          <div className="text-xs font-thin w-full">ID: {id}</div>
         </div>
+      </div>
+      <div className="flex items-center gap-2 text-sm lg:w-1/6">
+          <div>Logged In</div>
+          <div>{timeIn}</div>
       </div>
       <div className={`flex flex-col justify-center h-full gap-2 w-1/3`}>
         <div className="font-semibold">
