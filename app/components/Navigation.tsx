@@ -55,15 +55,18 @@ function Navigation() {
             ))}
           </ul>
           <ul className="w-full font-semibold">
-            <li className="flex items-center gap-2 px-5 py-3">
+            <Link
+              href="/login"
+              className="flex items-center gap-2 hover:bg-red-200/50 hover:rounded-2xl px-5 py-3"
+            >
               <FcExport className="p-1 border rounded-lg w-8 h-8" />
               <button onClick={() => auth.signOut()}>Logout</button>
-            </li>
+            </Link>
           </ul>
         </div>
       )}
     </>
-  );
+  )
 }
 
 export default Navigation;
