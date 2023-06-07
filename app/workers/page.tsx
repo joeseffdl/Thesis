@@ -1,9 +1,8 @@
 "use client";
 
 import { WorkerCard, WorkerHeader } from "./";
-import { ref, onValue } from "firebase/database";
-import { db } from "../../utils/firebase";
-import { useState, useEffect, useMemo } from "react";
+import { useContext, useMemo } from "react";
+import { DataContext } from "../../utils/context";
 
 type WorkerProps = {
   name: string;
@@ -14,18 +13,7 @@ type WorkerProps = {
 };
 
 export default function Workers() {
-  const [workersList, setWorkersList] = useState([]);
-
-  useEffect(() => {
-    const workersRef = ref(db, "timelogs");
-    onValue(workersRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data !== null) {
-        const workersArray = Object.values(data);
-        setWorkersList(workersArray as any);
-      }
-    });
-  }, []);
+  const workersList = useContext(DataContext);
 
   const memoizedWorkersList = useMemo(() => workersList, [workersList]);
 

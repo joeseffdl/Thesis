@@ -2,9 +2,10 @@
 
 import { Header, LogsSubHeader } from "../components";
 import { TimelogsList, WeatherHeader } from "./";
-import { ref, onValue, update } from "firebase/database";
+import { ref, update } from "firebase/database";
 import { db } from "../../utils/firebase";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useContext } from "react";
+import { DataContext } from "@/utils/context";
 
 type TimelogProps = {
   id: string;
@@ -17,7 +18,7 @@ type TimelogProps = {
 };
 
 export default function Logs() {
-  const [timelogs, setTimelogs] = useState([]);
+  const timelogs = useContext(DataContext);
   const [notify, setNotify] = useState(false);
   const [tempID, setTempID] = useState("");
 
@@ -29,18 +30,7 @@ export default function Logs() {
   };
 
   useEffect(() => {
-    const timelogsRef = ref(db, "timelogs");
-    onValue(timelogsRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data !== null) {
-        const timelogsArray = Object.values(data);
-        setTimelogs(timelogsArray as any);
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    if (notify) {
+    if (tempID) {
       notifyWorker();
     }
   }, [notify]);

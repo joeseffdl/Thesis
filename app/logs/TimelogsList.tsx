@@ -23,7 +23,7 @@ export default function ListItem({
 }: ListItemProps) {
   const handleNotify = (id: string) => {
     setTempID(id);
-    setNotify(true);
+    setNotify(!notify);
   };
 
   return (
@@ -45,8 +45,8 @@ export default function ListItem({
         </div>
       </div>
       <div className="flex items-center gap-2 text-sm lg:w-1/6">
-          <div>Logged In</div>
-          <div>{timeIn}</div>
+        <div>Logged In</div>
+        <div>{timeIn}</div>
       </div>
       <div className={`flex flex-col justify-center h-full gap-2 w-1/3`}>
         <div className="font-semibold">
