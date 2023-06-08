@@ -1,7 +1,7 @@
 type WorkerCardProps = {
   name: string;
-  timeIn: string;
-  timeOut: string;
+  timeIn: number;
+  timeOut: number;
   status: string;
   role?: string;
 };

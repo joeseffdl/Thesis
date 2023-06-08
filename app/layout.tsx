@@ -26,7 +26,16 @@ export default function RootLayout({
       <head />
       <body className={`flex ${poppins.variable} font-poppins`}>
         <DataContextProvider>
-          <Toaster position="top-right" reverseOrder={false} />
+          <Toaster
+            position="top-right"
+            reverseOrder={false}
+            toastOptions={{
+              style: {
+                padding: "16px",
+                fontWeight: "500",
+              },
+            }}
+          />
           <Navigation />
           {children}
         </DataContextProvider>

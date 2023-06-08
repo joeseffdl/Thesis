@@ -1,4 +1,4 @@
-type ListItemProps = {
+type TimelogListProps = {
   timeIn: number;
   name: string;
   id: string;
@@ -10,7 +10,7 @@ type ListItemProps = {
   setTempID: (value: string) => void;
 };
 
-export default function ListItem({
+export default function TimelogList({
   timeIn,
   name,
   id,
@@ -20,7 +20,7 @@ export default function ListItem({
   tempID,
   setNotify,
   setTempID,
-}: ListItemProps) {
+}: TimelogListProps) {
   const handleNotify = (id: string) => {
     setTempID(id);
     setNotify(!notify);
