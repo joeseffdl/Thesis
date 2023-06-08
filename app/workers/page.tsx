@@ -1,33 +1,18 @@
 "use client";
 
 import { WorkerCard, WorkerHeader } from "./";
-import { ref, onValue } from "firebase/database";
-import { db } from "../../utils/firebase";
-import { useState, useEffect, useMemo } from "react";
-
-type WorkerProps = {
-  name: string;
-  loggedTimeIn: string;
-  scheduledTimeOut: string;
-  status: string;
-  role?: string;
-};
+import { useContext, useMemo, useEffect } from "react";
+import { DataContext } from "../../utils/context";
+import NotifySupervisor from "@/utils/NotifySupervisor";
 
 export default function Workers() {
-  const [workersList, setWorkersList] = useState([]);
+  const { firebaseData, accidents, warnings } = useContext(DataContext);
+
+  const memoizedWorkersList = useMemo(() => firebaseData, [firebaseData]);
 
   useEffect(() => {
-    const workersRef = ref(db, "timelogs");
-    onValue(workersRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data !== null) {
-        const workersArray = Object.values(data);
-        setWorkersList(workersArray as any);
-      }
-    });
-  }, []);
-
-  const memoizedWorkersList = useMemo(() => workersList, [workersList]);
+    NotifySupervisor({ accidents, warnings });
+  }, [accidents, warnings]);
 
   return (
     <div className="w-full">
@@ -38,12 +23,12 @@ export default function Workers() {
           completedHours={"80"}
         />
         <div className="flex flex-col gap-2 lg:grid lg:grid-cols-3">
-          {memoizedWorkersList.map((worker: WorkerProps) => (
+          {memoizedWorkersList.map((worker) => (
             <WorkerCard
               key={worker.name}
-              name={worker.name}
-              timeIn={worker.loggedTimeIn}
-              timeOut={worker.scheduledTimeOut}
+              name={worker.name ?? "Default worker"}
+              timeIn={worker.loggedTimeIn ?? 0}
+              timeOut={worker.scheduledTimeOut ?? 9}
               status={worker.status}
               role={worker.role}
             />
