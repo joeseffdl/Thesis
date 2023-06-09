@@ -11,7 +11,7 @@ export default function LogsSubHeader() {
           </button>
         </div>
       </div>
-      <div className="xl:w-3/4 bg-white rounded-2xl flex flex-col md:flex-row justify-center gap-4  divide-y-2 md:divide-y-0 md:divide-x-2">
+      <div className="xl:w-3/4 bg-slate-50 rounded-2xl flex flex-col md:flex-row justify-center gap-4  divide-y-2 md:divide-y-0 md:divide-x-2">
         <div className="w-full flex flex-col justify-center p-4 xl:py-4 gap-4">
           <h4>Project estimate</h4>
           <div className="flex flex-col md:flex-row gap-2">

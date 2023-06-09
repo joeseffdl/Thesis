@@ -32,7 +32,7 @@ export default function StatusContainer() {
 
   return (
     <section className="flex flex-col justify-between lg:flex-row gap-4 mt-4 font-semibold">
-      <Link href="/logs" className="w-full hover:bg-blue-950 ">
+      <Link href="/logs" className="w-full hover:bg-blue-300 ">
         <StatusCard title="Active" value={workers} suffix="workers" />
       </Link>
       <Link href="/workers" className="w-full hover:bg-blue-950 ">
