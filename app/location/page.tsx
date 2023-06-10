@@ -7,7 +7,7 @@ export default function Location() {
   return (
     <div className="w-full">
       <section className="flex flex-col h-full">
-        <section className="p-8 bg-slate-400">
+        <section className="p-8 bg-teal-200/50">
           <Header
             title="Location"
             subtitle="Track the location of your workers"
@@ -20,5 +20,5 @@ export default function Location() {
         </section>
       </section>
     </div>
-  );
+  )
 }

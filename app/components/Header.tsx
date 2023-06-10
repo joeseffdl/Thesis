@@ -1,5 +1,3 @@
-"use client";
-
 type HeaderProps = {
   title: string;
   subtitle: string;
