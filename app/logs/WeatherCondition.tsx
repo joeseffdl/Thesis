@@ -17,13 +17,13 @@ export default function WeatherCondition({
 }: WeatherConditionProps) {
   return (
     <>
-      <div className="flex items-center justify-between w-full">
+      <div className="flex flex-col items-center justify-between w-full text-lg">
         {source && (
-          <span className="grid place-items-center w-fit p-2">{source}</span>
+          <span className="grid place-items-center w-fit p-2 text-4xl">{source}</span>
         )}
-        <div className="w-full text-center text-2xl">
+        <div className="w-full text-center whitespace-nowrap">
           {condition} {label}
-          <div className="text-sm">{name}</div>
+          <div className="text-xs font-medium">{name}</div>
         </div>
       </div>
     </>
