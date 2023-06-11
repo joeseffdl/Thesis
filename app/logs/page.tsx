@@ -33,11 +33,11 @@ export default function Logs() {
   useEffect(() => {
     if (accidents !== _accidents) {
       _setAccidents(accidents);
-      NotifySupervisor({ accidents, position: "bottom-right" });
+      NotifySupervisor({ accidents });
     }
     if (warnings !== _warnings) {
       _setWarnings(warnings);
-      NotifySupervisor({ warnings, position: "bottom-right" });
+      NotifySupervisor({ warnings });
     }
     if (notifiedWorkers !== _notifiedWorkers) {
       _setNotifiedWorkers(notifiedWorkers);
@@ -58,7 +58,9 @@ export default function Logs() {
             subtitle="Monitor the status of your workers"
           />
         </section>
-        <div className="bg-teal-200/50 p-8 flex flex-col gap-2">
+        <div className="
+         p-8 flex flex-col gap-2">
+           {/* bg-teal-200/50 */}
           <LogsSubHeader />
           <div className="flex justify-between items-center py-4 px-2">
             <h2 className="font-semibold text-lg">Timelogs</h2>
