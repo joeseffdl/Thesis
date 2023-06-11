@@ -1,42 +1,28 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import axios from "axios"
 import Image from "next/image"
 import { BsDropletHalf, BsHurricane } from "react-icons/bs"
 import { BiTachometer } from "react-icons/bi"
 import { WeatherCondition } from "./"
+import { useQuery } from "@tanstack/react-query"
+import { toast } from "react-hot-toast"
 
 export default function WeatherHeader() {
   const [city, setCity] = useState("Manila")
-  const [weather, setWeather] = useState({} as any)
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState(false)
-
-  const getWeatherData = async (e: any) => {
-    e.preventDefault()
-    try {
-      setIsLoading(true)
-      const res = await axios.get(
+  
+  const { data, refetch, isLoading, error } = useQuery({
+    queryKey: ["weather"],
+    queryFn: async () => {
+      const { data } = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}&units=metric`
       )
-      if (res?.data?.cod === 200) {
-        setWeather(res.data)
-        setError(false)
-        setIsLoading(false)
-      } else {
-        throw new Error("Something went wrong in fetching weather data")
-      }
-    } catch (error) {
-      setError(true)
-      setWeather({})
-      setIsLoading(false)
+      return data
     }
-  }
+  })
 
-  useEffect(() => {
-    getWeatherData({ preventDefault: () => {} })
-  }, [])
+  if (error) toast.error("Error fetching weather data on " + city + " City") 
 
   return (
     <div className="w-full text-[#393E5B] h-full flex flex-col items-center bg-gradient-to-t from-[#F7F8FF] to-orange-50 drop-shadow-lg">
@@ -47,40 +33,40 @@ export default function WeatherHeader() {
         <div className="absolute h-40 w-40 bg-[#FFF7D6] rounded-full -top-20 -left-10" />
       </div>
       <div className="w-full h-full flex flex-col items-center">
-        {weather?.cod === 200 && (
+        {data?.cod === 200 && (
           <div className="w-full px-5">
             <div className="relative flex flex-col items-center justify-center text-center font-semibold text-6xl uppercase space-y-1">
               <Image
-                src={`https://openweathermap.org/img/wn/${weather?.weather[0]?.icon}@4x.png`}
+                src={`https://openweathermap.org/img/wn/${data?.weather[0]?.icon}@4x.png`}
                 alt="Weather Icon"
                 width={100}
                 height={100}
               />
               <div className="flex flex-col ">
                 <h3 className="capitalize text-2xl font-normal">
-                  {weather.name} City, {weather.sys.country}
+                  {data.name} City, {data.sys.country}
                 </h3>
-                <div>{weather.main.temp} &deg;C</div>
+                <div>{data.main.temp} &deg;C</div>
                 <p className="text-sm tracking-widest">
-                  {weather.weather[0].description}
+                  {data.weather[0].description}
                 </p>
                 <div className="mt-10 flex items-center justify-center gap-5">
                   <WeatherCondition
                     source={<BsHurricane />}
                     name="Speed"
-                    condition={weather.wind.speed}
+                    condition={data.wind.speed}
                     label="m/s"
                   />
                   <WeatherCondition
                     source={<BsDropletHalf />}
                     name="Humidity"
-                    condition={weather.main.humidity}
+                    condition={data.main.humidity}
                     label="%"
                   />
                   <WeatherCondition
                     source={<BiTachometer />}
                     name="Pressure"
-                    condition={weather.main.pressure}
+                    condition={data.main.pressure}
                     label="hPa"
                   />
                 </div>
@@ -90,9 +76,9 @@ export default function WeatherHeader() {
         )}
 
         <div className="w-full flex flex-col items-center justify-center gap-y-3 my-6">
-          {weather?.cod === 200 && (
+          {!isLoading && (
             <form
-              onSubmit={getWeatherData}
+              onSubmit={(e) => { e.preventDefault() }}
               className="text-xs font-semibold space-x-2"
             >
               <input
@@ -107,15 +93,14 @@ export default function WeatherHeader() {
                   isLoading ? "opacity-50" : ""
                 } hover:scale-105 duration-75`}
                 disabled={isLoading}
+                onClick={() => refetch()}
               >
                 Search
               </button>
             </form>
           )}
-          {error && (
-            <div className="w-full p-5 text-red-500 bg-black">
-              Something went wrong with your request. Please try again later.
-            </div>
+          {isLoading && (
+            <div className="w-full p-5 text-white bg-black">Loading...</div>
           )}
         </div>
       </div>
