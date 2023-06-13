@@ -12,6 +12,9 @@ type FirebaseDataProps = {
   scheduledTimeOut?: number;
   notified: boolean;
   status: string;
+  latitude?: number;
+  longitude?: number;
+  altitude?: number;
 };
 
 type DataContextProps = {
