@@ -18,7 +18,7 @@ export default function Home() {
   }, [user, loading]);
 
   return (
-    <main className="w-full">
+    <main className="w-full h-screen">
       <Dashboard />
     </main>
   );
