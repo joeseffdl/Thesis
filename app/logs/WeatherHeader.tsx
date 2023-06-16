@@ -8,6 +8,7 @@ import { BiTachometer } from "react-icons/bi"
 import { WeatherCondition } from "./"
 import { useQuery } from "@tanstack/react-query"
 import { toast } from "react-hot-toast"
+import { motion } from "framer-motion"
 
 export default function WeatherHeader() {
   const [city, setCity] = useState("Manila")
