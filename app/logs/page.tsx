@@ -7,8 +7,12 @@ import { db } from "../../utils/firebase";
 import { useState, useEffect, useMemo, useContext } from "react";
 import { DataContext } from "@/utils/context";
 import NotifySupervisor from "../../utils/NotifySupervisor";
+import { useAnimate, usePresence, stagger } from "framer-motion"
 
 export default function Logs() {
+  const [isPresent, safeToRemove] = usePresence()
+  const [scope, animate] = useAnimate()
+
   const { firebaseData, accidents, warnings, notifiedWorkers } =
     useContext(DataContext);
   const [notify, setNotify] = useState(false);
@@ -47,10 +51,29 @@ export default function Logs() {
     }
   }, [accidents, warnings, notifiedWorkers]);
 
+  useEffect(() => {
+    if (isPresent) {
+      const enterAnimation = async () => {
+        await animate("ul", { opacity: [0, 1] }, { duration: 0.5, delay: stagger(0.2) })
+      }
+      enterAnimation()
+    } else {
+      const exitAnimation = async () => {
+        await animate(
+          scope.current,
+          { opacity: [1, 0] },
+          { duration: 0.5, delay: stagger(0.2) }
+        )
+        safeToRemove()
+      }
+      exitAnimation()
+    }
+  }, [isPresent])
+
   const memoizedFirebaseData = useMemo(() => firebaseData, [firebaseData]);
 
   return (
-    <div className="w-full flex flex-col xl:flex-row">
+    <div ref={scope} className="w-full flex flex-col xl:flex-row">
       <section className="xl:w-3/4">
         <section className="p-8">
           <Header

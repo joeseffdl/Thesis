@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import axios from "axios"
 import Image from "next/image"
 import { BsDropletHalf, BsHurricane } from "react-icons/bs"
@@ -8,9 +8,11 @@ import { BiTachometer } from "react-icons/bi"
 import { WeatherCondition } from "./"
 import { useQuery } from "@tanstack/react-query"
 import { toast } from "react-hot-toast"
-import { motion } from "framer-motion"
+import { useAnimate, usePresence } from "framer-motion"
 
 export default function WeatherHeader() {
+  const [isPresent, safeToRemove] = usePresence()
+  const [scope, animate] = useAnimate()
   const [city, setCity] = useState("Manila")
   
   const { data, refetch, isLoading, error } = useQuery({
@@ -25,6 +27,21 @@ export default function WeatherHeader() {
 
   if (error) toast.error("Error fetching weather data on " + city + " City") 
 
+  useEffect(() => {
+    if (isPresent) {
+      const enterAnimation = async () => {
+        await animate('div', { opacity: [0, 1] }, { duration: 0.5, delay: 0.2 })
+      }
+      enterAnimation()
+    } else {
+      const exitAnimation = async () => {
+        await animate(scope.current, { opacity: [1, 0] }, { duration: 0.5, delay: 0.2 })
+        safeToRemove()
+      }
+      exitAnimation()
+    }
+  }, [isPresent])
+
   return (
     <div className="w-full text-[#393E5B] h-full flex flex-col items-center bg-gradient-to-t from-[#F7F8FF] to-orange-50 drop-shadow-lg">
       <div className="h-1/2 relative w-full overflow-hidden">
@@ -33,7 +50,7 @@ export default function WeatherHeader() {
         <div className="absolute h-60 w-60 bg-[#393E5B] rounded-full -top-10 transform translate-x-1/4" />
         <div className="absolute h-40 w-40 bg-[#FFF7D6] rounded-full -top-20 -left-10" />
       </div>
-      <div className="w-full h-full flex flex-col items-center">
+      <div ref={scope} className="w-full h-full flex flex-col items-center">
         {data?.cod === 200 && (
           <div className="w-full px-5">
             <div className="relative flex flex-col items-center justify-center text-center font-semibold text-6xl uppercase space-y-1">
@@ -44,13 +61,13 @@ export default function WeatherHeader() {
                 height={100}
               />
               <div className="flex flex-col ">
-                <h3 className="capitalize text-2xl font-normal">
+                <div className="capitalize text-2xl font-normal">
                   {data.name} City, {data.sys.country}
-                </h3>
+                </div>
                 <div>{data.main.temp} &deg;C</div>
-                <p className="text-sm tracking-widest">
+                <div className="text-sm tracking-widest">
                   {data.weather[0].description}
-                </p>
+                </div>
                 <div className="mt-10 flex items-center justify-center gap-5">
                   <WeatherCondition
                     source={<BsHurricane />}
