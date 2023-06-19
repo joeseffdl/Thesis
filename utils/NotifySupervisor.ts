@@ -1,4 +1,3 @@
-import { usePathname } from "next/navigation";
 import toast from "react-hot-toast";
 
 type NotifySupervisorProps = {
@@ -20,6 +19,9 @@ export default function NotifySupervisor({
   notifiedWorkers,
   position,
 }: NotifySupervisorProps) {
+  const notificationSound = new Audio("sounds/notify.wav")
+  const alertSound = new Audio("sounds/alert.wav")
+
   if (accidents && accidents > 0) {
     toast.error(
       `${accidents} ${accidents > 1 ? "accidents" : "accident"} detected!`,
@@ -28,10 +30,14 @@ export default function NotifySupervisor({
         position: position,
         style: {
           background: "#FECACA",
+          padding: "16px",
+          fontWeight: "500",
         },
       }
-    );
+    )
+    alertSound.play()
   }
+
   if (warnings && warnings > 0) {
     toast.error(
       `${warnings} ${warnings > 1 ? "warnings" : "warning"} detected!`,
@@ -40,9 +46,12 @@ export default function NotifySupervisor({
         position: position,
         style: {
           background: "#FDE68A",
+          padding: "16px",
+          fontWeight: "500",
         },
       }
-    );
+    )
+    alertSound.play()
   }
   if (notifiedWorkers && notifiedWorkers > 0) {
     toast.success(
@@ -52,7 +61,12 @@ export default function NotifySupervisor({
       {
         position: position,
         icon: "👷",
+        style: {
+          padding: "16px",
+          fontWeight: "500",
+        }
       }
     );
+    notificationSound.play()
   }
 }
