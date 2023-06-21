@@ -10,9 +10,6 @@ import { DataContext } from "@/utils/context"
 const Map = () => {
   const { firebaseData } = useContext(DataContext)
 
-  const longitude = firebaseData.map((data) => data.longitude)
-  const latitude = firebaseData.map((data) => data.latitude)
-
   return (
     <MapContainer
       style={{ width: "100%", height: "100%" }}
@@ -30,7 +27,8 @@ const Map = () => {
             key={data.id}
             position={[data.latitude || 0, data.longitude || 0]}
           >
-            <Popup className={`${data.status === "danger" ? "bg-red-200": data.status === "warning" ? "bg-amber-200" : "bg-green-200"}`}>
+            <Popup
+              className={`${data.status === "danger" ? "bg-red-200" : data.status === "warning" ? "bg-amber-200" : "bg-green-200"}`}>
               <h1 className="font-bold uppercase">{data.name}</h1>
             </Popup>
           </Marker>
