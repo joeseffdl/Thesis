@@ -48,8 +48,8 @@ export default function TimelogList({
         <div>Logged In</div>
         <div>{timeIn}</div>
       </div>
-      <div className={`flex flex-col justify-center h-full gap-2 w-1/3`}>
-        <div className="font-semibold">
+      <div className={`flex flex-col justify-center h-full gap-2 lg:w-1/3`}>
+        <div className="font-semibold flex items-center gap-1 lg:flex-col">
           {Math.round((timeIn / timeOut) * 100)} %{" "}
           <span className="text-xs">complete</span>
         </div>

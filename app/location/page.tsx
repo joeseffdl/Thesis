@@ -14,11 +14,9 @@ export default function Location() {
           ></Header>
         </section>
         <section className="flex flex-grow align-center justify-center">
-          <div className="flex justify-center align-center w-3/4 rounded-2xl my-10 p-5 bg-slate-700">
-            <DynamicMap />
-          </div>
+          <DynamicMap />
         </section>
       </section>
     </div>
-  )
+  );
 }

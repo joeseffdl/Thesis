@@ -1,14 +1,14 @@
-"use client"
+"use client";
 
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet"
-import "leaflet/dist/leaflet.css"
-import "leaflet-defaulticon-compatibility"
-import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css"
-import { useContext } from "react"
-import { DataContext } from "@/utils/context"
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import "leaflet-defaulticon-compatibility";
+import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
+import { useContext } from "react";
+import { DataContext } from "@/utils/context";
 
 const Map = () => {
-  const { firebaseData } = useContext(DataContext)
+  const { firebaseData } = useContext(DataContext);
 
   return (
     <MapContainer
@@ -28,14 +28,21 @@ const Map = () => {
             position={[data.latitude || 0, data.longitude || 0]}
           >
             <Popup
-              className={`${data.status === "danger" ? "bg-red-200" : data.status === "warning" ? "bg-amber-200" : "bg-green-200"}`}>
+              className={`${
+                data.status === "danger"
+                  ? "bg-red-200"
+                  : data.status === "warning"
+                  ? "bg-amber-200"
+                  : "bg-green-200"
+              }`}
+            >
               <h1 className="font-bold uppercase">{data.name}</h1>
             </Popup>
           </Marker>
-        )
+        );
       })}
     </MapContainer>
-  )
-}
+  );
+};
 
-export default Map
+export default Map;

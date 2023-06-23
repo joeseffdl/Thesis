@@ -7,11 +7,11 @@ import { db } from "../../utils/firebase";
 import { useState, useEffect, useMemo, useContext } from "react";
 import { DataContext } from "@/utils/context";
 import NotifySupervisor from "../../utils/NotifySupervisor";
-import { useAnimate, usePresence, stagger } from "framer-motion"
+import { useAnimate, usePresence, stagger } from "framer-motion";
 
 export default function Logs() {
-  const [isPresent, safeToRemove] = usePresence()
-  const [scope, animate] = useAnimate()
+  const [isPresent, safeToRemove] = usePresence();
+  const [scope, animate] = useAnimate();
 
   const { firebaseData, accidents, warnings, notifiedWorkers } =
     useContext(DataContext);
@@ -54,21 +54,25 @@ export default function Logs() {
   useEffect(() => {
     if (isPresent) {
       const enterAnimation = async () => {
-        await animate("ul", { opacity: [0, 1] }, { duration: 0.5, delay: stagger(0.2) })
-      }
-      enterAnimation()
+        await animate(
+          "ul",
+          { opacity: [0, 1] },
+          { duration: 0.5, delay: stagger(0.2) }
+        );
+      };
+      enterAnimation();
     } else {
       const exitAnimation = async () => {
         await animate(
           scope.current,
           { opacity: [1, 0] },
           { duration: 0.5, delay: stagger(0.2) }
-        )
-        safeToRemove()
-      }
-      exitAnimation()
+        );
+        safeToRemove();
+      };
+      exitAnimation();
     }
-  }, [isPresent])
+  }, [isPresent]);
 
   const memoizedFirebaseData = useMemo(() => firebaseData, [firebaseData]);
 
@@ -81,9 +85,11 @@ export default function Logs() {
             subtitle="Monitor the status of your workers"
           />
         </section>
-        <div className="
-         p-8 flex flex-col gap-2">
-           {/* bg-teal-200/50 */}
+        <div
+          className="
+         p-8 flex flex-col gap-2"
+        >
+          {/* bg-teal-200/50 */}
           <LogsSubHeader />
           <div className="flex justify-between items-center py-4 px-2">
             <h2 className="font-semibold text-lg">Timelogs</h2>
@@ -111,5 +117,5 @@ export default function Logs() {
         <WeatherHeader />
       </section>
     </div>
-  )
+  );
 }

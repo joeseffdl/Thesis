@@ -19,13 +19,13 @@ function Navigation() {
   return (
     <>
       {pathname !== "/login" && (
-        <div className="flex flex-col gap-5 justify-between items-center w-fit pt-8 px-4 pb-2 min-h-screen shadow-lg">
-          <ul className="w-full flex flex-col font-semibold">
+        <div className="flex flex-col gap-5 justify-between items-center pt-8 px-4 lg:px-8 pb-2 min-h-screen shadow-lg">
+          <ul className="w-full flex flex-col lg:font-semibold">
             {routes.map((route) => (
               <li key={route.path}>
                 <Link
                   href={route.path}
-                  className="flex items-center gap-2 hover:bg-slate-200/50 hover:rounded-2xl px-5 py-3"
+                  className="flex justify-center items-center lg:justify-start gap-2 py-3 hover:bg-slate-200 hover:rounded-2xl "
                 >
                   {route.name === "Dashboard" && (
                     <FcHome className="p-1 border rounded-lg w-8 h-8" />
@@ -39,18 +39,20 @@ function Navigation() {
                   {route.name === "Workers" && (
                     <GrTools className="p-1 border rounded-lg w-8 h-8" />
                   )}
-                  <span>{route.name}</span>
+                  <span className="hidden lg:block">{route.name}</span>
                 </Link>
               </li>
             ))}
           </ul>
-          <ul className="w-full font-semibold">
+          <ul className="w-full lg:font-semibold">
             <Link
               href="/login"
-              className="flex items-center gap-2 hover:bg-red-200/50 hover:rounded-2xl px-5 py-3"
+              className="flex justify-center  lg:justify-start items-center hover:bg-red-200 hover:rounded-2xl gap-2 py-3"
             >
-              <FcExport className="p-1 border rounded-lg w-8 h-8" />
-              <button onClick={() => auth.signOut()}>Logout</button>
+              <FcExport className="p-1 border border-red-200 rounded-lg w-8 h-8" />
+              <button onClick={() => auth.signOut()}>
+                <span className="hidden lg:block">Logout</span>
+              </button>
             </Link>
           </ul>
         </div>

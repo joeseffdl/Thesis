@@ -1,13 +1,13 @@
-import { GrLocation } from "react-icons/gr"
+import { GrLocation } from "react-icons/gr";
 
 type CoordinatesCardProps = {
-  id: string
-  name: string
-  latitude: number
-  longitude: number
-  altitude: number
-  status: string
-}
+  id: string;
+  name: string;
+  latitude: number;
+  longitude: number;
+  altitude: number;
+  status: string;
+};
 
 export default function CoordinatesCard({
   id,
@@ -32,15 +32,17 @@ export default function CoordinatesCard({
           <span className="font-bold">{name}</span>
           <span className="font-medium text-xs">{id}</span>
         </div>
-        <div className="flex gap-2 items-center text-sm">
-          <span className="text-lg">
-            <GrLocation />
-          </span>
-          <span className="font-medium">Latitude:</span> {latitude}
-          <span className="font-medium">Longitude:</span> {longitude}
-          <span className="font-medium">Altitude:</span> {altitude}
+        <div className="flex gap-2 items-center font-medium text-xs lg:text-base">
+          <div>
+            <span className="text-lg">
+              <GrLocation />
+            </span>
+          </div>
+          <div>Latitude: {latitude}</div>
+          <div>Longitude: {longitude}</div>
+          <div>Altitude: {altitude}</div>
         </div>
       </div>
     </div>
-  )
+  );
 }
