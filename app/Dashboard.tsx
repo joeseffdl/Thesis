@@ -1,5 +1,5 @@
 import { MainContent } from ".";
-import { Header, StatusContainer } from "./components"
+import { Header, StatusContainer } from "./components";
 
 export default function Dashboard() {
   return (
@@ -12,5 +12,5 @@ export default function Dashboard() {
         <MainContent />
       </section>
     </>
-  )
+  );
 }

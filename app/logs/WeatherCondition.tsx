@@ -19,7 +19,9 @@ export default function WeatherCondition({
     <>
       <div className="flex flex-col items-center justify-between w-full text-lg">
         {source && (
-          <span className="grid place-items-center w-fit p-2 text-4xl">{source}</span>
+          <span className="grid place-items-center w-fit p-2 text-4xl">
+            {source}
+          </span>
         )}
         <div className="w-full text-center whitespace-nowrap">
           {condition} {label}

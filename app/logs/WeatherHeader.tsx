@@ -1,46 +1,54 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import axios from "axios"
-import Image from "next/image"
-import { BsDropletHalf, BsHurricane } from "react-icons/bs"
-import { BiTachometer } from "react-icons/bi"
-import { WeatherCondition } from "./"
-import { useQuery } from "@tanstack/react-query"
-import { toast } from "react-hot-toast"
-import { useAnimate, usePresence } from "framer-motion"
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Image from "next/image";
+import { BsDropletHalf, BsHurricane } from "react-icons/bs";
+import { BiTachometer } from "react-icons/bi";
+import { WeatherCondition } from "./";
+import { useQuery } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
+import { useAnimate, usePresence } from "framer-motion";
 
 export default function WeatherHeader() {
-  const [isPresent, safeToRemove] = usePresence()
-  const [scope, animate] = useAnimate()
-  const [city, setCity] = useState("Manila")
-  
+  const [isPresent, safeToRemove] = usePresence();
+  const [scope, animate] = useAnimate();
+  const [city, setCity] = useState("Manila");
+
   const { data, refetch, isLoading, error } = useQuery({
     queryKey: ["weather"],
     queryFn: async () => {
       const { data } = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}&units=metric`
-      )
-      return data
-    }
-  })
+      );
+      return data;
+    },
+  });
 
-  if (error) toast.error("Error fetching weather data on " + city + " City") 
+  if (error) toast.error("Error fetching weather data on " + city + " City");
 
   useEffect(() => {
     if (isPresent) {
       const enterAnimation = async () => {
-        await animate('div', { opacity: [0, 1] }, { duration: 0.5, delay: 0.2 })
-      }
-      enterAnimation()
+        await animate(
+          "div",
+          { opacity: [0, 1] },
+          { duration: 0.5, delay: 0.2 }
+        );
+      };
+      enterAnimation();
     } else {
       const exitAnimation = async () => {
-        await animate(scope.current, { opacity: [1, 0] }, { duration: 0.5, delay: 0.2 })
-        safeToRemove()
-      }
-      exitAnimation()
+        await animate(
+          scope.current,
+          { opacity: [1, 0] },
+          { duration: 0.5, delay: 0.2 }
+        );
+        safeToRemove();
+      };
+      exitAnimation();
     }
-  }, [isPresent])
+  }, [isPresent]);
 
   return (
     <div className="w-full text-[#393E5B] h-full flex flex-col items-center bg-gradient-to-t from-[#F7F8FF] to-orange-50 drop-shadow-lg">
@@ -97,7 +105,7 @@ export default function WeatherHeader() {
           {!isLoading && (
             <form
               onSubmit={(e) => {
-                e.preventDefault()
+                e.preventDefault();
               }}
               className="text-xs font-semibold space-x-2"
             >
@@ -144,5 +152,5 @@ export default function WeatherHeader() {
         </div>
       </div>
     </div>
-  )
+  );
 }

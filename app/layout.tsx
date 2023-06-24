@@ -28,8 +28,8 @@ export default function RootLayout({
       <body className={`flex ${poppins.variable} font-poppins`}>
         <DataContextProvider>
           <QueryWrapper>
-          <Navigation />
-          {children}
+            <Navigation />
+            {children}
           </QueryWrapper>
         </DataContextProvider>
       </body>
