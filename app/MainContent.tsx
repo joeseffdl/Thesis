@@ -31,7 +31,7 @@ export default function MainContent() {
                   altitude={data.altitude || 0}
                   status={data.status || "normal"}
                 />
-              );
+              )
             })}
             {firebaseData.length === 0 && (
               <CoordinatesCard
@@ -74,8 +74,8 @@ export default function MainContent() {
             <span className="sr-only">Loading...</span>
           </div>
         )}
-        {firebaseData && <DynamicMap />}
+        {firebaseData.length === 0 && <DynamicMap />}
       </section>
     </>
-  );
+  )
 }
