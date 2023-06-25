@@ -74,7 +74,7 @@ export default function MainContent() {
             <span className="sr-only">Loading...</span>
           </div>
         )}
-        {firebaseData.length === 0 && <DynamicMap />}
+        {firebaseData.length !== 0 && <DynamicMap />}
       </section>
     </>
   )
