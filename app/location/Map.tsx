@@ -9,12 +9,14 @@ import { DataContext } from "@/utils/context";
 
 const Map = () => {
   const { firebaseData } = useContext(DataContext);
+  let latitude = firebaseData[0].latitude;
+  let longitude = firebaseData[0].longitude;
 
   return (
     <MapContainer
       style={{ width: "100%", height: "100%" }}
-      center={[14.574271167, 121.001043333]}
-      zoom={200}
+      center={[latitude || 0, longitude || 0]}
+      zoom={25}
       scrollWheelZoom={true}
     >
       <TileLayer
