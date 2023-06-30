@@ -13,13 +13,14 @@ export default function Logs() {
   const [isPresent, safeToRemove] = usePresence();
   const [scope, animate] = useAnimate();
 
-  const { firebaseData, accidents, warnings, notifiedWorkers } =
+  const { firebaseData, accidents, warnings, notifiedWorkers, emergencies } =
     useContext(DataContext);
   const [notify, setNotify] = useState(false);
   const [tempID, setTempID] = useState("");
   const [_accidents, _setAccidents] = useState(accidents);
   const [_warnings, _setWarnings] = useState(warnings);
   const [_notifiedWorkers, _setNotifiedWorkers] = useState(notifiedWorkers);
+  const [_emergencies, _setEmergencies] = useState(emergencies);
 
   const notifyWorker = () => {
     update(ref(db, `timelogs/${tempID}`), {
@@ -49,7 +50,11 @@ export default function Logs() {
         NotifySupervisor({ notifiedWorkers, position: "top-center" });
       }
     }
-  }, [accidents, warnings, notifiedWorkers]);
+    if (emergencies !== _emergencies) {
+      _setEmergencies(emergencies);
+      NotifySupervisor({ emergencies });
+    }
+  }, [accidents, warnings, notifiedWorkers, emergencies]);
 
   useEffect(() => {
     if (isPresent) {
