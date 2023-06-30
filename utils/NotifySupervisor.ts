@@ -4,6 +4,7 @@ type NotifySupervisorProps = {
   accidents?: number;
   warnings?: number;
   notifiedWorkers?: number;
+  emergencies?: number;
   position?:
     | "top-right"
     | "top-center"
@@ -17,6 +18,7 @@ export default function NotifySupervisor({
   accidents,
   warnings,
   notifiedWorkers,
+  emergencies,
   position,
 }: NotifySupervisorProps) {
   const notificationSound = new Audio("sounds/notify.wav")
@@ -30,8 +32,6 @@ export default function NotifySupervisor({
         position: position,
         style: {
           background: "#FECACA",
-          padding: "16px",
-          fontWeight: "500",
         },
       }
     )
@@ -46,8 +46,6 @@ export default function NotifySupervisor({
         position: position,
         style: {
           background: "#FDE68A",
-          padding: "16px",
-          fontWeight: "500",
         },
       }
     )
@@ -61,12 +59,23 @@ export default function NotifySupervisor({
       {
         position: position,
         icon: "👷",
-        style: {
-          padding: "16px",
-          fontWeight: "500",
-        }
       }
-    );
+    )
     notificationSound.play()
+  }
+  if (emergencies && emergencies > 0) {
+    toast.error(
+      `${emergencies} ${
+        emergencies > 1 ? "emergencies" : "emergency"
+      } detected!`,
+      {
+        icon: "🚑",
+        position: position,
+        style: {
+          background: "#FECACA",
+        },
+      }
+    )
+    alertSound.play()
   }
 }

@@ -23,12 +23,12 @@ function StatusCard({ title, value, suffix }: StatusCardProps) {
 }
 
 export default function StatusContainer() {
-  const { accidents, warnings, workers, notifiedWorkers } =
+  const { accidents, warnings, workers, notifiedWorkers, emergencies } =
     useContext(DataContext);
 
   useEffect(() => {
-    NotifySupervisor({ accidents, warnings });
-  }, [accidents, warnings]);
+    NotifySupervisor({ accidents, warnings, emergencies });
+  }, [accidents, warnings, emergencies]);
 
   return (
     <section className="flex flex-col justify-between lg:flex-row gap-4 mt-4 font-semibold">
@@ -51,6 +51,9 @@ export default function StatusContainer() {
       </Link>
       <Link href="/workers" className="w-full hover:bg-blue-950 ">
         <StatusCard title="Notified" value={notifiedWorkers} suffix="workers" />
+      </Link>
+      <Link href="/workers" className="w-full hover:bg-blue-950 ">
+        <StatusCard title="SOS" value={emergencies} suffix="in need" />
       </Link>
     </section>
   );

@@ -9,8 +9,8 @@ import { DataContext } from "@/utils/context";
 
 const Map = () => {
   const { firebaseData } = useContext(DataContext);
-  let latitude = firebaseData[0].latitude;
-  let longitude = firebaseData[0].longitude;
+  let latitude = firebaseData[0]?.latitude;
+  let longitude = firebaseData[0]?.longitude;
 
   return (
     <MapContainer

@@ -11,6 +11,7 @@ type FirebaseDataProps = {
   role?: string;
   scheduledTimeOut?: number;
   notified: boolean;
+  emergencies: boolean;
   status: string;
   latitude?: number;
   longitude?: number;
@@ -23,6 +24,7 @@ type DataContextProps = {
   warnings: number;
   workers: number;
   notifiedWorkers: number;
+  emergencies: number;
 };
 
 export const DataContext = createContext<DataContextProps>({
@@ -31,6 +33,7 @@ export const DataContext = createContext<DataContextProps>({
   warnings: 0,
   workers: 0,
   notifiedWorkers: 0,
+  emergencies: 0,
 });
 
 export function DataContextProvider({ children }: { children: ReactNode }) {
@@ -40,6 +43,7 @@ export function DataContextProvider({ children }: { children: ReactNode }) {
   const [warnings, setWarnings] = useState(0);
   const [workers, setWorkers] = useState(0);
   const [notifiedWorkers, setNotifiedWorkers] = useState(0);
+  const [emergencies, setEmergencies] = useState(0);
 
   const memoizedFirebaseData = useMemo(() => firebaseData, [firebaseData]);
 
@@ -64,6 +68,13 @@ export function DataContextProvider({ children }: { children: ReactNode }) {
     setNotifiedWorkers(notifiedWorkers.length);
   }
 
+  function getEmergencies() {
+    const emergencies = Object.values(memoizedFirebaseData).filter(
+      (data: FirebaseDataProps) => data.emergencies === true
+    );
+    setEmergencies(emergencies.length);
+  }
+
   useEffect(() => {
     const firebaseDataRef = ref(db, "timelogs");
     onValue(firebaseDataRef, (snapshot) => {
@@ -80,6 +91,7 @@ export function DataContextProvider({ children }: { children: ReactNode }) {
     getAccidents();
     getWarnings();
     getNotifiedWorkers();
+    getEmergencies();
   }, [memoizedFirebaseData]);
 
   return (
@@ -90,6 +102,7 @@ export function DataContextProvider({ children }: { children: ReactNode }) {
         warnings,
         workers,
         notifiedWorkers,
+        emergencies,
       }}
     >
       {children}

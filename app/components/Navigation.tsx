@@ -25,7 +25,7 @@ function Navigation() {
               <li key={route.path}>
                 <Link
                   href={route.path}
-                  className="flex justify-center items-center lg:justify-start gap-2 py-3 hover:bg-slate-200 hover:rounded-2xl "
+                  className="flex justify-center items-center lg:justify-start gap-2 py-3 hover:bg-slate-200 hover:rounded-2xl lg:px-1"
                 >
                   {route.name === "Dashboard" && (
                     <FcHome className="p-1 border rounded-lg w-8 h-8" />
