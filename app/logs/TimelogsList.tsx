@@ -49,7 +49,7 @@ export default function TimelogList({
         <div>{timeIn}</div>
       </div>
       <div className={`flex flex-col justify-center h-full gap-2 lg:w-1/3`}>
-        <div className="font-semibold flex items-center gap-1 lg:flex-col">
+        <div className="font-semibold flex items-center gap-1 lg:justify-center w-full">
           {Math.round((timeIn / timeOut) * 100)} %{" "}
           <span className="text-xs">complete</span>
         </div>
