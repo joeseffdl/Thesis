@@ -16,9 +16,14 @@ export default function QueryWrapper({ children }: { children?: ReactNode }) {
           error: {
             duration: 10000,
           },
+          style: {
+            fontWeight: "bold",
+            padding: "1rem",
+            minWidth: "275px",
+          },
         }}
       />
       {children}
     </QueryClientProvider>
-  );
+  )
 }
