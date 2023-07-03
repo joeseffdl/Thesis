@@ -13,7 +13,6 @@ export default function WorkerHeader({
     <>
       <div className="flex justify-between items-center my-2">
         <div className="w-8 h-8 rounded-lg border-2 border-orange-500" />
-        {/* <div className="w-10 h-10 bg-orange-200 rounded-full" /> */}
       </div>
       <div className="">
         <p className=" text-sm font-semibold text-slate-500">

@@ -19,7 +19,6 @@ function LoginComponent() {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         toast.success("Login Successful 🚀");
-        // console.log(userCredential)
         router.push("/");
       })
       .catch((error) => {
