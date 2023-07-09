@@ -1,60 +1,67 @@
-"use client";
+"use client"
 
-import { Header, LogsSubHeader } from "../components";
-import { TimelogsList, WeatherHeader } from "./";
-import { ref, update } from "firebase/database";
-import { db } from "../../utils/firebase";
-import { useState, useEffect, useMemo, useContext } from "react";
-import { DataContext } from "@/utils/context";
-import NotifySupervisor from "../../utils/NotifySupervisor";
-import { useAnimate, usePresence, stagger } from "framer-motion";
+import { Header, LogsSubHeader } from "../components"
+import { TimelogsList, WeatherHeader } from "./"
+import { ref, update } from "firebase/database"
+import { db } from "../../utils/firebase"
+import { useState, useEffect, useMemo, useContext } from "react"
+import { DataContext } from "@/utils/context"
+import NotifySupervisor from "../../utils/NotifySupervisor"
+import { useAnimate, usePresence, stagger } from "framer-motion"
 
 export default function Logs() {
-  const [isPresent, safeToRemove] = usePresence();
-  const [scope, animate] = useAnimate();
+  const [isPresent, safeToRemove] = usePresence()
+  const [scope, animate] = useAnimate()
 
-  const { firebaseData, accidents, warnings, notifiedWorkers, emergencies } =
-    useContext(DataContext);
-  const [notify, setNotify] = useState(false);
-  const [tempID, setTempID] = useState("");
-  const [_accidents, _setAccidents] = useState(accidents);
-  const [_warnings, _setWarnings] = useState(warnings);
-  const [_notifiedWorkers, _setNotifiedWorkers] = useState(notifiedWorkers);
-  const [_emergencies, _setEmergencies] = useState(emergencies);
+  const {
+    firebaseData,
+    accidents,
+    warnings,
+    notifiedWorkers,
+    emergencies,
+    currentlyWorn,
+  } = useContext(DataContext)
+  const [notify, setNotify] = useState(false)
+  const [tempID, setTempID] = useState("")
+  const [_accidents, _setAccidents] = useState(accidents)
+  const [_warnings, _setWarnings] = useState(warnings)
+  const [_notifiedWorkers, _setNotifiedWorkers] = useState(notifiedWorkers)
+  const [_emergencies, _setEmergencies] = useState(emergencies)
 
   const notifyWorker = () => {
     update(ref(db, `timelogs/${tempID}`), {
       notified: notify,
       id: tempID,
-    });
-  };
+    })
+  }
 
   useEffect(() => {
     if (tempID) {
-      notifyWorker();
+      notifyWorker()
     }
-  }, [notify, tempID]);
+  }, [notify, tempID])
 
   useEffect(() => {
     if (accidents !== _accidents) {
-      _setAccidents(accidents);
-      NotifySupervisor({ accidents });
+      _setAccidents(accidents)
+      NotifySupervisor({ accidents })
     }
     if (warnings !== _warnings) {
-      _setWarnings(warnings);
-      NotifySupervisor({ warnings });
+      _setWarnings(warnings)
+      NotifySupervisor({ warnings })
     }
     if (notifiedWorkers !== _notifiedWorkers) {
-      _setNotifiedWorkers(notifiedWorkers);
+      _setNotifiedWorkers(notifiedWorkers)
       if (notifiedWorkers > _notifiedWorkers) {
-        NotifySupervisor({ notifiedWorkers, position: "top-center" });
+        NotifySupervisor({ notifiedWorkers, position: "top-center" })
       }
     }
     if (emergencies !== _emergencies) {
-      _setEmergencies(emergencies);
-      NotifySupervisor({ emergencies });
+      _setEmergencies(emergencies)
+      NotifySupervisor({ emergencies })
     }
-  }, [accidents, warnings, notifiedWorkers, emergencies]);
+    NotifySupervisor({ currentlyWorn })
+  }, [accidents, warnings, notifiedWorkers, emergencies, currentlyWorn])
 
   useEffect(() => {
     if (isPresent) {
@@ -63,23 +70,23 @@ export default function Logs() {
           "ul",
           { opacity: [0, 1] },
           { duration: 0.5, delay: stagger(0.2) }
-        );
-      };
-      enterAnimation();
+        )
+      }
+      enterAnimation()
     } else {
       const exitAnimation = async () => {
         await animate(
           scope.current,
           { opacity: [1, 0] },
           { duration: 0.5, delay: stagger(0.2) }
-        );
-        safeToRemove();
-      };
-      exitAnimation();
+        )
+        safeToRemove()
+      }
+      exitAnimation()
     }
-  }, [isPresent]);
+  }, [isPresent])
 
-  const memoizedFirebaseData = useMemo(() => firebaseData, [firebaseData]);
+  const memoizedFirebaseData = useMemo(() => firebaseData, [firebaseData])
 
   return (
     <div ref={scope} className="w-full flex flex-col xl:flex-row">
@@ -121,5 +128,5 @@ export default function Logs() {
         <WeatherHeader />
       </section>
     </div>
-  );
+  )
 }
