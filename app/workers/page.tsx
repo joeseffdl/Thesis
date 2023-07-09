@@ -6,13 +6,13 @@ import { DataContext } from "../../utils/context";
 import NotifySupervisor from "@/utils/NotifySupervisor";
 
 export default function Workers() {
-  const { firebaseData, accidents, warnings, emergencies } = useContext(DataContext);
+  const { firebaseData, accidents, warnings, emergencies, currentlyWorn } = useContext(DataContext);
 
   const memoizedWorkersList = useMemo(() => firebaseData, [firebaseData]);
 
   useEffect(() => {
-    NotifySupervisor({ accidents, warnings, emergencies });
-  }, [accidents, warnings, emergencies]);
+    NotifySupervisor({ accidents, warnings, emergencies, currentlyWorn });
+  }, [accidents, warnings, emergencies, currentlyWorn]);
 
   return (
     <div className="w-full">

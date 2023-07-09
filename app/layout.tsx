@@ -1,6 +1,5 @@
 import "./globals.css";
 import { Poppins } from "next/font/google";
-import { Toaster } from "react-hot-toast";
 import { Navigation } from "./components";
 import { DataContextProvider } from "@/utils/context";
 import QueryWrapper from "./components/QueryWrapper";

@@ -5,6 +5,7 @@ type NotifySupervisorProps = {
   warnings?: number;
   notifiedWorkers?: number;
   emergencies?: number;
+  currentlyWorn?: number;
   position?:
     | "top-right"
     | "top-center"
@@ -19,6 +20,7 @@ export default function NotifySupervisor({
   warnings,
   notifiedWorkers,
   emergencies,
+  currentlyWorn,
   position,
 }: NotifySupervisorProps) {
   const notificationSound = new Audio("sounds/notify.wav")
@@ -77,5 +79,17 @@ export default function NotifySupervisor({
       }
     )
     alertSound.play()
+  }
+  if (currentlyWorn && currentlyWorn > 0) {
+    toast.success(
+      `Detect ${currentlyWorn > 1 ? "NHUs: " : "NHU: "} ${currentlyWorn} ${
+        currentlyWorn > 1 ? "workers" : "worker"
+      }`,
+      {
+        position: position,
+        icon: "👷",
+      }
+    )
+    notificationSound.play()
   }
 }
